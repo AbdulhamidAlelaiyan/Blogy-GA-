@@ -43,4 +43,24 @@ router.get('/api/articles/:id', (req, res) => {
            res.status(500).json({error})
        });
 });
+
+router.delete('/api/articles/:id', (req, res) =>  {
+    Article.findById(req.params.id)
+        .then(article => {
+            if(article)  {
+                return article.remove();
+            } else {
+                res.status(404).json({error: {
+                        name: 'Document not found',
+                        message: 'The provided ID doesn\'t match any documents',
+                    }});
+            }
+        })
+        .then(() =>  {
+            res.status(204).end();
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        })
+});
 module.exports = router;
