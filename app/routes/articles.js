@@ -17,4 +17,14 @@ router.get('/api/articles', (req, res) => {
        });
 });
 
+router.post('/api/articles', (req, res) => {
+    Article.create(req.body.article)
+        .then((newArticle) => {
+            res.status(201).json({article: newArticle})
+        })
+        .catch((error) => {
+            res.send(500).json(error);
+        });
+});
+
 module.exports = router;
