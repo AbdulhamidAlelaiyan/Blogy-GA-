@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./app/routes/index');
 
+const db = require('./config/db');
+mongoose.connect(db, {useNewUrlParser: true});
+mongoose.connection.once('open', () => {
+   console.log('Connected to Mongo');
+});
+
 const app = express();
 
 
